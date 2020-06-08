@@ -168,7 +168,7 @@ def createtrailfile(table,precision):
     x_3 = "~ Update `Odui_Dlg_00` `t1.OffsetValInpPnl` `"
     x_4 = "`"
     x_5 = "` `Axis2`"
-    x_5 = "` `Axis3`"
+    x_6 = "` `Axis3`"
     with open("table-trail.txt", 'w') as g:
         for j in table:
             g.write(label_1 + str(row) + label_2 + '\n')
@@ -179,7 +179,7 @@ def createtrailfile(table,precision):
             g.write(x_3 + str(j[1]) + x_4 + '\n')
             g.write(x_1 + str(row) + x_5 + '\n')
             g.write(x_3 + str(j[2]) + x_4 + '\n')
-            g.write(x_1 + str(row) + x_5 + '\n')
+            g.write(x_1 + str(row) + x_6 + '\n')
             g.write(x_3 + str(j[3]) + x_4 + '\n')
             row +=1
     print(colorize('file saved as table-trail.txt','green'))
