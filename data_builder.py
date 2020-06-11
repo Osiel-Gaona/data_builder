@@ -48,31 +48,32 @@ def filecheck():
 
 def getpoints(precision,skip_pnt = True):
     table = []
-    with open(filename) as f:
-        line = f.readline()
-        while line:
-            for i in line:
-                if 'CARTESIAN_POINT' in line:
-                    if "''"  in line or 'centre point' in line:
+    file = open(filename)
+    line = file.read().replace("\n", " ")
+    file.close()
+    fileList = line.split(';')
+    for i in fileList:
+        if 'CARTESIAN_POINT' in i:
+            if "''"  in i or 'centre point' in i:
+                pass
+            else:
+                if 'PNT' in i and skip_pnt == True:
+                    pass
+                else:
+                    item = []
+                    a = (i.split('(',1)[-1]).rstrip("\n\r") #remove up to first parenthesis and EOL
+                    b = re.sub("[();']",'', a) #remove other characters
+                    c = (b.split(',')) #convert to list separated by ','
+                    if c[3] == '':
                         pass
                     else:
-                        if 'PNT' in line and skip_pnt == True:
-                            pass
-                        else:
-                            item = []
-                            a = (line.split('(',1)[-1]).rstrip("\n\r") #remove up to first parenthesis and EOL
-                            b = re.sub("[();']",'', a) #remove other characters
-                            c = (b.split(',')) #convert to list separated by ','
-                            if c[3] == '':
-                                pass
-                            else:
-                                item.append(c[0]) #Label
-                                item.append("{:.{}f}".format(float(c[1]), precision)) #X
-                                item.append("{:.{}f}".format(float(c[2]), precision)) #Y
-                                item.append("{:.{}f}".format(float(c[3]), precision)) #Z
-                                table.append(item)
-                line = f.readline()
+                        item.append(c[0]) #Label
+                        item.append("{:.{}f}".format(float(c[1]), precision)) #X
+                        item.append("{:.{}f}".format(float(c[2]), precision)) #Y
+                        item.append("{:.{}f}".format(float(c[3]), precision)) #Z
+                        table.append(item)
     return(table)
+
 
 def portrait():
     os.system('cls')
